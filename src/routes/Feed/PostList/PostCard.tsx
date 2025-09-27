@@ -9,20 +9,21 @@ import styled from "@emotion/styled"
 
 type Props = {
   data: TPost
+  showMedia: boolean
 }
 
-const PostCard: React.FC<Props> = ({ data }) => {
+const PostCard: React.FC<Props> = ({ data, showMedia }) => {
   const category = (data.category && data.category?.[0]) || undefined
 
   return (
     <StyledWrapper href={`/${data.slug}`}>
       <article>
-        {category && (
+        {showMedia && category && (
           <div className="category">
             <Category>{category}</Category>
           </div>
         )}
-        {data.thumbnail && (
+        {showMedia && data.thumbnail && (
           <div className="thumbnail">
             <Image
               src={data.thumbnail}
@@ -32,7 +33,11 @@ const PostCard: React.FC<Props> = ({ data }) => {
             />
           </div>
         )}
-        <div data-thumb={!!data.thumbnail} data-category={!!category} className="content">
+        <div
+          data-thumb={!!data.thumbnail}
+          data-category={!!category}
+          className="content"
+        >
           <header className="top">
             <h2>{data.title}</h2>
           </header>
@@ -50,7 +55,9 @@ const PostCard: React.FC<Props> = ({ data }) => {
           <div className="tags">
             {data.tags &&
               data.tags.map((tag: string, idx: number) => (
-                <Tag key={idx}>{tag}</Tag>
+                <Tag key={idx} postId={data.id} tagIndex={idx}>
+                  {tag}
+                </Tag>
               ))}
           </div>
         </div>
@@ -68,7 +75,7 @@ const StyledWrapper = styled(Link)`
     margin-bottom: 1.5rem;
     border-radius: 1rem;
     background-color: ${({ theme }) =>
-      theme.scheme === "light" ? "white" : theme.colors.gray4};
+      theme.scheme === "light" ? "white" : "rgb(63 63 70)"};
     transition-property: box-shadow;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 300ms;
