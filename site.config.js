@@ -6,9 +6,9 @@ const CONFIG = {
     role: "Game Developer",
     bio: "Study and learn for game development.",
     email: "mkm6302@gmail.com",
-    linkedin: "morethanmin",
+    linkedin: "",
     github: "minssuy99",
-    instagram: "",
+    instagram: "minssuy99",
   },
   projects: [
     {
@@ -18,8 +18,8 @@ const CONFIG = {
   ],
   // blog setting (required)
   blog: {
-    title: "morethan-log",
-    description: "welcome to morethan-log!",
+    title: "Minssuy99",
+    description: "Hello there, I'm Minssuy99.",
     scheme: "dark", // 'light' | 'dark' | 'system'
   },
 
