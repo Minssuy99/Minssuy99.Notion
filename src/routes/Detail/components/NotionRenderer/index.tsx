@@ -27,11 +27,11 @@ const Code = dynamic(() =>
       import("prismjs/components/prism-csharp.js"),
       import("prismjs/components/prism-bash.js"),
       import("prismjs/components/prism-json.js"),
-      import("prismjs/components/prism-html.js"),
       import("prismjs/components/prism-css.js"),
       import("prismjs/components/prism-yaml.js"),
       import("prismjs/components/prism-typescript.js"),
       import("prismjs/components/prism-javascript.js"),
+      import("prismjs/components/prism-html.js"),
     ])
     return m.Code as any
   })
