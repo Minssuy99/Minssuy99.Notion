@@ -24,12 +24,12 @@ const _NotionRenderer = dynamic(
 const Code = dynamic(() =>
   import("react-notion-x/build/third-party/code").then(async (m) => {
     await Promise.all([
-      import("prismjs/components/prism-cpp.js"),
-      import("prismjs/components/prism-csharp.js"),
       import("prismjs/components/prism-bash.js"),
-      import("prismjs/components/prism-json.js"),
-      import("prismjs/components/prism-css.js"),
+      import("prismjs/components/prism-docker.js"),
       import("prismjs/components/prism-yaml.js"),
+      import("prismjs/components/prism-java.js"),
+      import("prismjs/components/prism-sql.js"),
+      import("prismjs/components/prism-python.js"),
       import("prismjs/components/prism-typescript.js"),
       import("prismjs/components/prism-javascript.js"),
     ])
