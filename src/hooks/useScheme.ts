@@ -27,7 +27,7 @@ const useScheme = (): [Scheme, SetScheme] => {
 
     const savedScheme = getCookie("scheme") as Scheme | undefined
     setScheme(savedScheme || "light")
-  }, [])
+  }, [setScheme])
 
   return [scheme, setScheme]
 }
