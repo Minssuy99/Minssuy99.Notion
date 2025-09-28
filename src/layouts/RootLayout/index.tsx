@@ -14,59 +14,80 @@ type Props = {
 
 const RootLayout = ({ children }: Props) => {
   const router = useRouter()
-  const currentElementRef = useRef<HTMLDivElement | null>(null)
-
-  const [blogHeight, setBlogHeight] = useState(0)
-  const [throttleScrollY, setThrottleScrollY] = useState<number>(0)
   const [scheme] = useScheme()
+  const [readingProgress, setReadingProgress] = useState(0)
 
   useGtagEffect()
 
-  const scrollThrottle = useThrottle(() => {
-    setThrottleScrollY(window.scrollY)
-  }, 100)
+  const scrollListener = useThrottle(() => {
+    // This part will now only calculate progress for intermediate scrolls
+    const scrollTop = window.scrollY
+    const scrollHeight =
+      document.documentElement.scrollHeight -
+      document.documentElement.clientHeight
 
-  const getCurrentPercentage = () => {
-    if (window.scrollY === 0 || router.asPath === "/") return 0
+    if (scrollHeight <= 0) { // Only check scrollHeight here, 0% and 100% handled by handleScroll
+      setReadingProgress(0)
+      return
+    }
+    
+    let progress = (scrollTop / scrollHeight) * 100
 
-    if (!currentElementRef.current) return 0
-
-    const scrollPosition = window.scrollY + window.innerHeight
-    const totalHeight = document.documentElement.scrollHeight
-    let percentage = (scrollPosition / totalHeight) * 100
-    percentage = Math.min(100, Math.max(0, percentage))
-
-    percentage = percentage >= 90 ? 100 : percentage
-    return Math.ceil(percentage)
-  }
+    // Snap to 100% if very close, for intermediate scrolls
+    if (progress > 98) {
+      progress = 100
+    }
+    
+    setReadingProgress(progress);
+  }, 150);
 
   useEffect(() => {
-    const updateBlogHeight = () => {
-      const totalHeight = document.documentElement.scrollHeight
-      setBlogHeight(window.scrollY === 0 ? 0 : totalHeight - window.innerHeight)
-    }
+    const handleScroll = () => {
+      if (router.asPath === ">") {
+        setReadingProgress(0)
+        return
+      }
 
-    window.addEventListener("resize", updateBlogHeight)
-    window.addEventListener("scroll", scrollThrottle)
+      const scrollTop = window.scrollY;
+      const scrollHeight = 
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
 
-    updateBlogHeight()
+      // Force 0% if at top
+      if (scrollTop === 0) {
+        setReadingProgress(0);
+        return;
+      }
+
+      // Force 100% if at bottom
+      const isAtBottom = window.innerHeight + scrollTop >= document.documentElement.scrollHeight;
+      if (isAtBottom) {
+        setReadingProgress(100);
+        return;
+      }
+
+      // For intermediate scrolls, use the throttled listener
+      scrollListener();
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("resize", scrollListener); // Resize can still be throttled
+
+    // Trigger once on mount and route change to set initial state
+    handleScroll(); // Call handleScroll directly for initial state
 
     return () => {
-      window.removeEventListener("scroll", scrollThrottle)
-      window.removeEventListener("resize", updateBlogHeight)
-    }
-  }, [scrollThrottle])
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", scrollListener);
+    };
+  }, [router.asPath, scrollListener, setReadingProgress]);
 
   return (
     <ThemeProvider scheme={scheme}>
       <Scripts />
-      {/* // TODO: replace react query */}
-      {/* {metaConfig.type !== "Paper" && <Header />} */}
-      <Header
-        fullWidth={false}
-        readingProgress={blogHeight < 1200 ? 0 : getCurrentPercentage()}
-      />
-      <StyledMain ref={currentElementRef}>{children}</StyledMain>
+      <Header fullWidth={false} readingProgress={readingProgress} />
+      {/* The expensive {children} are now safe from re-rendering on scroll */}
+      <StyledMain>{children}</StyledMain>
     </ThemeProvider>
   )
 }
