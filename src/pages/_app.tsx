@@ -15,7 +15,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         <RootLayout>{getLayout(<Component {...pageProps} />)}</RootLayout>
       </Hydrate>
       {/* <AnimatedCursor /> */}
-      <Sparkle />
+      {/* <Sparkle /> */}
     </QueryClientProvider>
   )
 }

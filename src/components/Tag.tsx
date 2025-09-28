@@ -71,7 +71,7 @@ const Tag: React.FC<Props> = ({ children, postId = "", tagIndex = 0 }) => {
 
   const StyledTag = styled.div`
     background-color: ${backgroundColor};
-    color: ${colors.light.gray10};
+    color: ${colors.dark.gray1}; // Changed to match category text color
     padding: 0.25rem 0.5rem;
     border-radius: 50px;
     font-size: 0.75rem;
