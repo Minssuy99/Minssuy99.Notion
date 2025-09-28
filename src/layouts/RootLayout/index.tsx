@@ -49,13 +49,14 @@ const RootLayout = ({ children }: Props) => {
     window.addEventListener("resize", updateBlogHeight)
     window.addEventListener("scroll", scrollThrottle)
 
-    updateBlogHeight()
+    const timer = setTimeout(() => updateBlogHeight(), 100)
 
     return () => {
+      clearTimeout(timer)
       window.removeEventListener("scroll", scrollThrottle)
       window.removeEventListener("resize", updateBlogHeight)
     }
-  }, [scrollThrottle])
+  }, [scrollThrottle, router.asPath])
 
   return (
     <ThemeProvider scheme={scheme}>
