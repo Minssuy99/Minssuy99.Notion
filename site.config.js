@@ -18,15 +18,15 @@ const CONFIG = {
   ],
   // blog setting (required)
   blog: {
-    title: "Minssuy99",
-    description: "Hello there, I'm Minssuy99.",
+    title: "Minssuy99 | Notion",
+    description: "Study and Learn for Game Development.",
     scheme: "dark", // 'light' | 'dark' | 'system'
   },
 
   // CONFIG configration (required)
   link: "https://minssuy99-notion.vercel.app/",
   since: 2025, // If leave this empty, current year will be used.
-  lang: "en-US", // ['en-US', 'zh-CN', 'zh-HK', 'zh-TW', 'ja-JP', 'es-ES', 'ko-KR']
+  lang: "ko-KR", // ['en-US', 'zh-CN', 'zh-HK', 'zh-TW', 'ja-JP', 'es-ES', 'ko-KR']
   ogImageGenerateURL: "https://og-image-korean.vercel.app", // The link to generate OG image, don't end with a slash
 
   // notion configuration (required)
