@@ -64,7 +64,7 @@ const DetailPage: NextPageWithLayout = () => {
   const date = post.date?.start_date || post.createdTime || ""
 
   const meta = {
-    title: post.title,
+    title: `${post.title} | ${CONFIG.profile.name}`,
     date: new Date(date).toISOString(),
     image: image,
     description: post.summary || "",
