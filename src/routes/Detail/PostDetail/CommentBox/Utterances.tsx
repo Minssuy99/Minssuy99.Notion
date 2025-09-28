@@ -33,7 +33,7 @@ const Utterances: React.FC<Props> = ({ issueTerm }) => {
     return () => {
       anchor.innerHTML = ""
     }
-  }, [scheme, router])
+  }, [scheme, router, issueTerm]) // Added issueTerm to dependency array
   return (
     <>
       <StyledWrapper id="comments">
