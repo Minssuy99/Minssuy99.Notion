@@ -28,13 +28,11 @@ const useMermaidEffect = () => {
     waitForMermaid()
       .then((elements) => {
         for (let i = 0; i < elements.length; i++) {
-          mermaid.render(
+          const { svg } = await mermaid.render(
             "mermaid" + i,
-            elements[i].textContent || "",
-            (svgCode: string) => {
-              elements[i].innerHTML = svgCode
-            }
+            elements[i].textContent || ""
           )
+          elements[i].innerHTML = svg
         }
       })
       .catch((error) => {
