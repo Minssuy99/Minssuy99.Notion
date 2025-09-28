@@ -10,6 +10,6 @@ module.exports = {
 
   experimental: {
     esmExternals: "loose",
-    largePageDataBytes: 250 * 1024, // Increased data serialization threshold to 250KB
+    largePageDataBytes: 350 * 1024, // Increased data serialization threshold to 350KB
   },
 }
