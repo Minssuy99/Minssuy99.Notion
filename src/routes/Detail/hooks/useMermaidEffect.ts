@@ -26,7 +26,7 @@ const useMermaidEffect = () => {
     })
     if (!document) return
     waitForMermaid()
-      .then((elements) => {
+      .then(async (elements) => { // Added async here
         for (let i = 0; i < elements.length; i++) {
           const { svg } = await mermaid.render(
             "mermaid" + i,
