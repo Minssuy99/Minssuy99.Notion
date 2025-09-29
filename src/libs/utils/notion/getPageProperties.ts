@@ -40,6 +40,8 @@ async function getPageProperties(
           const selects = getTextContent(val)
           if (selects[0]?.length) {
             properties[schema[key].name] = selects.split(",")
+          } else {
+            properties[schema[key].name] = null
           }
           break
         }
