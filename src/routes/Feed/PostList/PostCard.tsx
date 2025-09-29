@@ -13,7 +13,16 @@ type Props = {
 }
 
 const PostCard: React.FC<Props> = ({ data, showMedia }) => {
-  const category = (data.category && data.category?.[0]) || undefined
+  // const category = (data.category && data.category?.[0]) || undefined
+
+    const category = 
+    data.category && 
+    Array.isArray(data.category) && 
+    data.category.length > 0 && 
+    data.category[0] && 
+    String(data.category[0]).trim() !== '' 
+      ? data.category[0] 
+      : undefined
 
   return (
     <StyledWrapper href={`/${data.slug}`}>
