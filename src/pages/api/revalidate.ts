@@ -22,6 +22,7 @@ export default async function handler(
         res.revalidate(`/${row.slug}`)
       )
       await Promise.all(revalidateRequests)
+      await res.revalidate("/")
     }
 
     res.json({ revalidated: true })
