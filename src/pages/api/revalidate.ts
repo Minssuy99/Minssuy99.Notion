@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import { getPosts } from "../../apis"
+import { queryClient } from "src/libs/react-query"
+import { queryKey } from "src/constants/queryKey"
 
 // for all path revalidate, https://<your-site.com>/api/revalidate?secret=<token>
 // for specific path revalidate, https://<your-site.com>/api/revalidate?secret=<token>&path=<path>
@@ -8,6 +10,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  await queryClient.removeQueries(queryKey.posts())
   const { secret, path } = req.query
   if (secret !== process.env.TOKEN_FOR_REVALIDATE) {
     return res.status(401).json({ message: "Invalid token" })
