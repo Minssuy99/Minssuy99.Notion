@@ -28,31 +28,26 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const slug = context.params?.slug
+  const slug = context.params?.slug as string
 
   const posts = await getPosts()
-  const feedPosts = filterPosts(posts)
-  await queryClient.prefetchQuery(queryKey.posts(), () => feedPosts)
+  const postDetail = posts.find((t: any) => t.slug === slug)
 
-  const detailPosts = filterPosts(posts, filter)
-  const postDetail = detailPosts.find((t: any) => t.slug === slug)
-  const recordMap = await getRecordMap(postDetail?.id!)
+  if (!postDetail) {
+    return { notFound: true }
+  }
 
-  await queryClient.prefetchQuery(queryKey.post(`${slug}`), () => ({
-    ...postDetail,
-    recordMap,
-  }))
+  const recordMap = await getRecordMap(postDetail.id!)
 
   return {
     props: {
-      dehydratedState: dehydrate(queryClient),
+      post: { ...postDetail, recordMap },
     },
     revalidate: CONFIG.revalidateTime,
   }
 }
 
-const DetailPage: NextPageWithLayout = () => {
-  const post = usePostQuery()
+const DetailPage: NextPageWithLayout<{ post: PostDetail }> = ({ post }) => {
 
   if (!post) return <CustomError />
 
