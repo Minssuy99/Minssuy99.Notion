@@ -5,12 +5,13 @@ import CommentBox from "./CommentBox"
 import Category from "src/components/Category"
 import styled from "@emotion/styled"
 import NotionRenderer from "../components/NotionRenderer"
-import usePostQuery from "src/hooks/usePostQuery"
+import { PostDetail as TPostDetail } from "src/types"
 
-type Props = {}
+type Props = {
+  post: TPostDetail
+}
 
-const PostDetail: React.FC<Props> = () => {
-  const data = usePostQuery()
+const PostDetail: React.FC<Props> = ({ post: data }) => {
 
   if (!data) return null
 

@@ -71,7 +71,7 @@ const DetailPage: NextPageWithLayout<{ post: PostDetail }> = ({ post }) => {
   return (
     <>
       <MetaConfig {...meta} />
-      <Detail />
+      <Detail post={post} />
     </>
   )
 }

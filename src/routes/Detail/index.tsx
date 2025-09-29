@@ -2,19 +2,20 @@ import useMermaidEffect from "./hooks/useMermaidEffect"
 import PostDetail from "./PostDetail"
 import PageDetail from "./PageDetail"
 import styled from "@emotion/styled"
-import usePostQuery from "src/hooks/usePostQuery"
+import { PostDetail as TPostDetail } from "src/types"
 
-type Props = {}
+type Props = {
+  post: TPostDetail
+}
 
-const Detail: React.FC<Props> = () => {
-  const data = usePostQuery()
+const Detail: React.FC<Props> = ({ post: data }) => {
   useMermaidEffect()
 
   if (!data) return null
   return (
     <StyledWrapper data-type={data.type}>
-      {data.type[0] === "Page" && <PageDetail />}
-      {data.type[0] !== "Page" && <PostDetail />}
+      {data.type[0] === "Page" && <PageDetail post={data} />}
+      {data.type[0] !== "Page" && <PostDetail post={data} />}
     </StyledWrapper>
   )
 }
