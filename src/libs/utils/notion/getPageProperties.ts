@@ -8,7 +8,7 @@ async function getPageProperties(
   block: BlockMap,
   schema: CollectionPropertySchemaMap
 ) {
-  const api = new NotionAPI()
+  const api = new NotionAPI({ recordMap: { block: {} } })
   const rawProperties = Object.entries(block?.[id]?.value?.properties || [])
   const excludeProperties = ["date", "select", "multi_select", "person", "file"]
   const properties: any = {}
