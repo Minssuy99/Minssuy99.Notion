@@ -308,7 +308,7 @@ border-radius: 10px !important; /* Added !important here */
   /* Hover effect on the container changes the image */
   figure.notion-asset-wrapper-image:hover img {
     filter: ${({ theme }) =>
-      theme === "dark" ? "brightness(1.3)" : "brightness(0.8)"};
+      theme === "dark" ? "brightness(1.2)" : "brightness(0.8)"};
   }
 
   /* Ensure caption is styled independently */
