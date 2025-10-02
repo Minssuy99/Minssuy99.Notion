@@ -100,6 +100,9 @@ pre[class*="language-"] {
   overflow: auto;
   border-radius: 0.3em;
   background: var(--background-code);
+  min-height: 4.5em;
+  display: flex;
+  align-items: center;
 }
 
 /* Inline code */
@@ -205,4 +208,23 @@ pre[class*="language-"] {
 
 .token.entity {
   cursor: help;
+}
+
+/* Dark theme selection override for better contrast */
+[data-theme="dark"] pre[class*="language-"]::-moz-selection,
+[data-theme="dark"] pre[class*="language-"] ::-moz-selection,
+[data-theme="dark"] code[class*="language-"]::-moz-selection,
+[data-theme="dark"] code[class*="language-"] ::-moz-selection {
+  text-shadow: none;
+  background: #f0f0f0; /* Light background for selection */
+  color: #111;      /* Dark text for high contrast */
+}
+
+[data-theme="dark"] pre[class*="language-"]::selection,
+[data-theme="dark"] pre[class*="language-"] ::selection,
+[data-theme="dark"] code[class*="language-"]::selection,
+[data-theme="dark"] code[class*="language-"] ::selection {
+  text-shadow: none;
+  background: #f0f0f0; /* Light background for selection */
+  color: #111;      /* Dark text for high contrast */
 }
