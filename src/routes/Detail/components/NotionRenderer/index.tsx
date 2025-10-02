@@ -290,4 +290,29 @@ const StyledWrapper = styled.div<StyledWrapperProps>`
       position: static;
     }
   }
+/* --- Custom Image Styling --- */
+
+  /* Apply styles directly to the image element */
+  figure.notion-asset-wrapper-image img {
+    display: block; /* Ensure img is a block element for styling */
+border-radius: 10px !important; /* Added !important here */
+    border: 1px solid ${({ theme }) =>
+      theme === "dark" ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)"};
+
+    transition: filter 0.5s ease !important;
+  }
+
+  /* Hover effect on the container changes the image */
+  figure.notion-asset-wrapper-image:hover img {
+    filter: ${({ theme }) =>
+      theme === "dark" ? "brightness(1.3)" : "brightness(0.8)"};
+  }
+
+  /* Ensure caption is styled independently */
+  figure.notion-asset-wrapper-image .notion-asset-caption {
+    text-align: center;
+    margin-top: 8px;
+    padding: 0;
+  }
+/* --- End Custom Image Styling --- */
 `
